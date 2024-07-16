@@ -1,0 +1,27 @@
+<main class="main"><div class="container">
+  <h1>Comptes Bancaires</h1>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Type</th>
+      <th scope="col">Solde</th>
+      <th scope="col">Date de Création</th>
+      <th scope="col">Numéro de Compte</th>
+      <th scope="col">Utilisateur</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let compte of comptes">
+      <td>{{ compte.compteId }}</td>
+      <td>{{ compte.type }}</td>
+      <td>{{ compte.solde }}</td>
+      <td>{{ compte.dateCreation | date }}</td>
+      <td>{{ compte.numeroCompte }}</td>
+      <td>{{ compte.user?.name }}</td>
+    </tr>
+    </tbody>
+
+  </table>
+</div>
+</main>
