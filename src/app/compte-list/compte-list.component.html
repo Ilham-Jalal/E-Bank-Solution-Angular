@@ -12,16 +12,20 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let compte of comptes">
+      @for (compte of comptes; track compte) {
+        <tr>
       <td>{{ compte.compteId }}</td>
       <td>{{ compte.type }}</td>
       <td>{{ compte.solde }}</td>
       <td>{{ compte.dateCreation | date }}</td>
       <td>{{ compte.numeroCompte }}</td>
-      <td>{{ compte.user?.name }}</td>
+      <td>{{ compte.user.userId }}</td>
     </tr>
+      }
     </tbody>
+
 
   </table>
 </div>
 </main>
+<router-outlet />

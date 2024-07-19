@@ -1,39 +1,33 @@
-// src/app/components/compte/compte.component.ts
 import { Component, OnInit } from '@angular/core';
-import {CompteBancaire} from "../model/CompteBancaire";
-
+import { HttpHeaders } from '@angular/common/http';
 import {CompteService} from "../service/compte-service.service";
+import {AuthService} from "../service/auth-service.service";
 import {DatePipe} from "@angular/common";
+import {ActivatedRoute, RouterOutlet} from "@angular/router";
 
 
 @Component({
-  selector: 'app-compte',
+  selector: 'app-compte-list',
   templateUrl: './compte-list.component.html',
-
   standalone: true,
   imports: [
-    DatePipe
+    DatePipe,
+    RouterOutlet
   ],
   styleUrls: ['./compte-list.component.scss']
 })
-export class CompteComponent implements OnInit {
-  comptes: CompteBancaire[] = [];
-  userId: number = 1;
+export class CompteListComponent implements OnInit {
+  comptes: any[] = [];
+  idUsser:any
 
-  constructor(private compteService: CompteService) { }
+  constructor(private compteService: CompteService,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getAllAccounts();
+   this.idUsser=this.route.snapshot.paramMap.get('id')
+    this.compteService.getAllAccounts(this.idUsser).subscribe(value=>{
+      this.comptes=value
+    });
   }
 
-  getAllAccounts(): void {
-    this.compteService.getAllAccounts(this.userId).subscribe(
-      (data: CompteBancaire[]) => {
-        this.comptes = data;
-      },
-      (error: any) => {
-        console.error('Error fetching accounts:', error);
-      }
-    );
-  }
+
 }
